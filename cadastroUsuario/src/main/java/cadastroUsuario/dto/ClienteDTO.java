@@ -1,4 +1,4 @@
-package cadastroUsuario;
+package cadastroUsuario.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;

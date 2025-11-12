@@ -2,7 +2,7 @@ package cadastroUsuario.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import cadastroUsuario.ClienteDTO;
+import cadastroUsuario.dto.ClienteDTO;
 import cadastroUsuario.model.Cliente;
 import cadastroUsuario.repository.ClienteRepository;
 import cadastroUsuario.repository.EmailRepository;

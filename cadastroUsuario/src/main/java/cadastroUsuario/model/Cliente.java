@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import cadastroUsuario.ClienteDTO;
+import cadastroUsuario.dto.ClienteDTO;
 
 public class Cliente implements Serializable {
 	
