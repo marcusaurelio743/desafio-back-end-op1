@@ -1,6 +1,8 @@
 package cadastroUsuario.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Cliente implements Serializable {
@@ -18,6 +20,10 @@ public class Cliente implements Serializable {
 	private String localidade;
 	private String uf;
 	private String estado;
+	
+	private List<Telefone> telefones = new ArrayList<>();
+	
+	private List<Email> emails = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -121,5 +127,36 @@ public class Cliente implements Serializable {
 	public Cliente() {
 		super();
 	}
+
+	public Cliente(Long id, String nome, String cpf, String cep, String logradouro, String complemento, String bairro,
+			String localidade, String uf, String estado) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.cep = cep;
+		this.logradouro = logradouro;
+		this.complemento = complemento;
+		this.bairro = bairro;
+		this.localidade = localidade;
+		this.uf = uf;
+		this.estado = estado;
+	}
+	public void AddTelefone(Telefone telefone) {
+		this.telefones.add(telefone);
+	}
+
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
+	
+	public void AddEmail(Email email) {
+		this.emails.add(email);
+	}
+
+	public List<Email> getEmails() {
+		return emails;
+	}
+	
 
 }
