@@ -1,15 +1,15 @@
-package cadastroUsuario.model;
+package cadastroUsuario;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import cadastroUsuario.ClienteDTO;
+import cadastroUsuario.model.Cliente;
+import cadastroUsuario.model.Email;
+import cadastroUsuario.model.Telefone;
 
-public class Cliente implements Serializable {
-	
-	
+public class ClienteDTO implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
@@ -107,31 +107,31 @@ public class Cliente implements Serializable {
 		this.estado = estado;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
+	}
+
+	public List<Email> getEmails() {
+		return emails;
+	}
+
+	public void setEmails(List<Email> emails) {
+		this.emails = emails;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cliente other = (Cliente) obj;
-		return Objects.equals(id, other.id);
+	public String toString() {
+		return "ClienteDTO [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", cep=" + cep + ", logradouro="
+				+ logradouro + ", complemento=" + complemento + ", bairro=" + bairro + ", localidade=" + localidade
+				+ ", uf=" + uf + ", estado=" + estado + ", telefones=" + telefones + ", emails=" + emails + "]";
 	}
 
-	
-
-	public Cliente() {
-		super();
-	}
-
-	public Cliente(Long id, String nome, String cpf, String cep, String logradouro, String complemento, String bairro,
-			String localidade, String uf, String estado) {
+	public ClienteDTO(Long id, String nome, String cpf, String cep, String logradouro, String complemento,
+			String bairro, String localidade, String uf, String estado, List<Telefone> telefones, List<Email> emails) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -143,10 +143,12 @@ public class Cliente implements Serializable {
 		this.localidade = localidade;
 		this.uf = uf;
 		this.estado = estado;
+		this.telefones = telefones;
+		this.emails = emails;
 	}
 	
-	public Cliente(ClienteDTO obj) {
-		super();
+	public ClienteDTO(Cliente obj) {
+		
 		this.id = obj.getId();
 		this.nome = obj.getNome();
 		this.cpf = obj.getCpf();
@@ -157,24 +159,17 @@ public class Cliente implements Serializable {
 		this.localidade = obj.getLocalidade();
 		this.uf = obj.getUf();
 		this.estado = obj.getEstado();
-		this.emails = obj.getEmails();
 		this.telefones = obj.getTelefones();
-	}
-	public void AddTelefone(Telefone telefone) {
-		this.telefones.add(telefone);
+		this.emails = obj.getEmails();
 	}
 
-	public List<Telefone> getTelefones() {
-		return telefones;
+	public ClienteDTO() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
-	public void AddEmail(Email email) {
-		this.emails.add(email);
-	}
+	
 
-	public List<Email> getEmails() {
-		return emails;
-	}
 	
 
 }
