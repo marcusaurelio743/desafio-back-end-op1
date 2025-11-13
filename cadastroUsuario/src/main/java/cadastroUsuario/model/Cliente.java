@@ -5,13 +5,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import cadastroUsuario.dto.ClienteDTO;
 
+@Entity
 public class Cliente implements Serializable {
 	
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
 	private String cpf;
@@ -23,8 +32,10 @@ public class Cliente implements Serializable {
 	private String uf;
 	private String estado;
 	
+	@OneToMany(mappedBy = "cliente")
 	private List<Telefone> telefones = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "cliente")
 	private List<Email> emails = new ArrayList<>();
 
 	public Long getId() {

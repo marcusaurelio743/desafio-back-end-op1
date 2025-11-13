@@ -1,6 +1,7 @@
 package cadastroUsuario.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import cadastroUsuario.dto.ClienteDTO;
 import cadastroUsuario.model.Cliente;
@@ -8,6 +9,7 @@ import cadastroUsuario.repository.ClienteRepository;
 import cadastroUsuario.repository.EmailRepository;
 import cadastroUsuario.repository.TelefoneRepository;
 
+@Service
 public class ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
