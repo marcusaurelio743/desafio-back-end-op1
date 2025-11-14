@@ -1,5 +1,6 @@
 package cadastroUsuario.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,13 +9,20 @@ import org.springframework.stereotype.Service;
 
 import cadastroUsuario.dto.ClienteDTO;
 import cadastroUsuario.model.Cliente;
+import cadastroUsuario.model.Email;
+import cadastroUsuario.model.Telefone;
 import cadastroUsuario.repository.ClienteRepository;
+import cadastroUsuario.repository.EmailRepository;
+import cadastroUsuario.repository.TelefoneRepository;
 
 @Service
 public class ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
-	
+	@Autowired
+	private TelefoneRepository telefoneRepository;
+	@Autowired
+	private EmailRepository emailRepository;
 	
 	public List<ClienteDTO> buscaTodos(){
 		List<Cliente> clientes = clienteRepository.findAll();
@@ -24,19 +32,53 @@ public class ClienteService {
 	}
 	
 	public ClienteDTO salvar(ClienteDTO clienteDTO) {
-		Cliente cliente = new Cliente(clienteDTO);		
+		Cliente cliente = new Cliente(clienteDTO);
+		
 		cliente = clienteRepository.save(cliente);
+		
+		List<Telefone> telefones = new ArrayList<>();
+		
+		for (Telefone fone : clienteDTO.getTelefones()) {
+			Telefone telefone = new Telefone();
+			telefone.setCliente(cliente);
+			telefone.setTipo(fone.getTipo());
+			telefone.setTelefone(fone.getTelefone());
+			telefones.add(telefone);
+		}
+		
+		telefoneRepository.saveAll(telefones);
+		
+		List<Email> emails = new ArrayList<>();
+		
+		for (Email email : clienteDTO.getEmails()) {
+			Email email2 = new Email();
+			email2.setCliente(cliente);
+			email2.setEmail(email.getEmail());
+			emails.add(email2);
+		}
+		
+		emailRepository.saveAll(emails);
 		
 		return new ClienteDTO(cliente);
 	}
 	
 	
 	public ClienteDTO atualizar(Long id, ClienteDTO dto) {
-		dto.setId(id);
-		Cliente obj = new Cliente(dto);
-		obj = clienteRepository.save(obj);
 		
-		return new ClienteDTO(obj);
+		Cliente cliente = clienteRepository.findById(id).get();
+		cliente.setId(id);
+		cliente.setBairro(dto.getBairro());
+		cliente.setCep(dto.getCep());
+		cliente.setComplemento(dto.getComplemento());
+		cliente.setCpf(dto.getCpf());
+		cliente.setEstado(dto.getEstado());
+		cliente.setLocalidade(dto.getLocalidade());
+		cliente.setLogradouro(dto.getLogradouro());
+		cliente.setNome(dto.getNome());
+		cliente.setUf(dto.getUf());
+		
+		cliente = clienteRepository.save(cliente);
+		return new ClienteDTO(cliente);
 	}
 	
 	public void deltarCliente(Long id) {

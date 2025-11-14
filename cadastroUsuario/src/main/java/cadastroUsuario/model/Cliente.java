@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import cadastroUsuario.dto.ClienteDTO;
 
 @Entity
@@ -33,9 +35,11 @@ public class Cliente implements Serializable {
 	private String uf;
 	private String estado;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Telefone> telefones = new ArrayList<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Email> emails = new ArrayList<>();
 	
@@ -122,14 +126,14 @@ public class Cliente implements Serializable {
 	public List<Email> getEmails() {
 		return emails;
 	}
-	public void AddEmails(Email email) {
-		this.emails.add(email);
+	public void setEmails(List<Email> emails) {
+		this.emails = emails;
 	}
 	public List<Telefone> getTelefones() {
 		return telefones;
 	}
-	public void AddTelefones(Telefone telefone) {
-		this.telefones.add(telefone);
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
 	}
 
 	@Override
@@ -184,8 +188,6 @@ public class Cliente implements Serializable {
 		this.localidade = obj.getLocalidade();
 		this.uf = obj.getUf();
 		this.estado = obj.getEstado();
-		this.emails = obj.getEmails();
-		this.telefones = obj.getTelefones();
 		
 	}
 	
