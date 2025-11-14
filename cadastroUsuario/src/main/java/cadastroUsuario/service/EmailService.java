@@ -27,10 +27,9 @@ public class EmailService {
 		email.setCliente(cliente);
 		return emailRepository.save(email);
 	}
-	public Email atualizar(Long idCli,Long idEmail,Email email) {
-		Cliente cliente = clienteRepository.findById(idCli).get();
-		email.setId(idEmail);
-		email.setCliente(cliente);
+	public Email atualizar(Long idEmail,Email email) {
+		Email oldEmail = emailRepository.findById(idEmail).get();
+		oldEmail.setEmail(email.getEmail());
 		return emailRepository.save(email);
 	}
 	public void deletar(Long id) {

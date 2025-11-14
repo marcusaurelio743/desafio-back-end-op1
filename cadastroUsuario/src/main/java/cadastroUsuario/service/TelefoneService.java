@@ -30,13 +30,14 @@ public class TelefoneService {
 		
 		return telefoneRepository.save(telefone);
 	}
-	public Telefone atualizar(Long idCli,Long idTele,Telefone telefone) {
-		Cliente cliente = clienteRepository.findById(idCli).get();
-		telefone.setId(idTele);
-		telefone.setCliente(cliente);
+	public Telefone atualizar(Long idTele,Telefone telefone) {
 		
-		return telefoneRepository.save(telefone);
+		Telefone oldFone = telefoneRepository.findById(idTele).get();
+		oldFone.setTelefone(telefone.getTelefone());
+		oldFone.setTipo(telefone.getTipo());
+		return telefoneRepository.save(oldFone);
 	}
+	
 	public void deletar(Long id) {
 		telefoneRepository.deleteById(id);
 	}
