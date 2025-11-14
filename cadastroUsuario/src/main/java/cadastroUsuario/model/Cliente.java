@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,11 +33,12 @@ public class Cliente implements Serializable {
 	private String uf;
 	private String estado;
 	
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Telefone> telefones = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Email> emails = new ArrayList<>();
+	
 
 	public Long getId() {
 		return id;
@@ -117,6 +119,18 @@ public class Cliente implements Serializable {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+	public List<Email> getEmails() {
+		return emails;
+	}
+	public void AddEmails(Email email) {
+		this.emails.add(email);
+	}
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
+	public void AddTelefones(Telefone telefone) {
+		this.telefones.add(telefone);
+	}
 
 	@Override
 	public int hashCode() {
@@ -142,7 +156,7 @@ public class Cliente implements Serializable {
 	}
 
 	public Cliente(Long id, String nome, String cpf, String cep, String logradouro, String complemento, String bairro,
-			String localidade, String uf, String estado) {
+			String localidade, String uf, String estado,List<Telefone> telefones,List<Email> emails) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -154,6 +168,8 @@ public class Cliente implements Serializable {
 		this.localidade = localidade;
 		this.uf = uf;
 		this.estado = estado;
+		this.emails = emails;
+		this.telefones = telefones;
 	}
 	
 	public Cliente(ClienteDTO obj) {
@@ -170,22 +186,7 @@ public class Cliente implements Serializable {
 		this.estado = obj.getEstado();
 		this.emails = obj.getEmails();
 		this.telefones = obj.getTelefones();
-	}
-	public void AddTelefone(Telefone telefone) {
-		this.telefones.add(telefone);
-	}
-
-	public List<Telefone> getTelefones() {
-		return telefones;
+		
 	}
 	
-	public void AddEmail(Email email) {
-		this.emails.add(email);
-	}
-
-	public List<Email> getEmails() {
-		return emails;
-	}
-	
-
 }

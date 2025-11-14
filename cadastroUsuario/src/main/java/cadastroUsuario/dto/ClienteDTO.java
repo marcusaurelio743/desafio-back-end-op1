@@ -26,6 +26,7 @@ public class ClienteDTO implements Serializable {
 	private List<Telefone> telefones = new ArrayList<>();
 	
 	private List<Email> emails = new ArrayList<>();
+	
 
 	public Long getId() {
 		return id;
@@ -106,32 +107,30 @@ public class ClienteDTO implements Serializable {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-
-	public List<Telefone> getTelefones() {
-		return telefones;
-	}
-
-	public void setTelefones(List<Telefone> telefones) {
-		this.telefones = telefones;
-	}
-
 	public List<Email> getEmails() {
 		return emails;
 	}
-
-	public void setEmails(List<Email> emails) {
-		this.emails = emails;
+	public List<Telefone> getTelefones() {
+		return telefones;
 	}
+	public void AddEmails(Email email) {
+		this.emails.add(email);
+	}
+	public void AddTelefones(Telefone telefone) {
+		this.telefones.add(telefone);
+	}
+
+	
 
 	@Override
 	public String toString() {
 		return "ClienteDTO [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", cep=" + cep + ", logradouro="
 				+ logradouro + ", complemento=" + complemento + ", bairro=" + bairro + ", localidade=" + localidade
-				+ ", uf=" + uf + ", estado=" + estado + ", telefones=" + telefones + ", emails=" + emails + "]";
+				+ ", uf=" + uf + ", estado=" + estado + "]";
 	}
 
 	public ClienteDTO(Long id, String nome, String cpf, String cep, String logradouro, String complemento,
-			String bairro, String localidade, String uf, String estado, List<Telefone> telefones, List<Email> emails) {
+			String bairro, String localidade, String uf, String estado,List<Telefone> telefones,List<Email> emails) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -143,9 +142,10 @@ public class ClienteDTO implements Serializable {
 		this.localidade = localidade;
 		this.uf = uf;
 		this.estado = estado;
-		this.telefones = telefones;
 		this.emails = emails;
+		this.telefones = telefones;
 	}
+	
 	
 	public ClienteDTO(Cliente obj) {
 		
@@ -159,8 +159,8 @@ public class ClienteDTO implements Serializable {
 		this.localidade = obj.getLocalidade();
 		this.uf = obj.getUf();
 		this.estado = obj.getEstado();
-		this.telefones = obj.getTelefones();
 		this.emails = obj.getEmails();
+		this.telefones = obj.getTelefones();
 	}
 
 	public ClienteDTO() {

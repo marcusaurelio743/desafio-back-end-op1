@@ -1,30 +1,35 @@
 package cadastroUsuario.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cadastroUsuario.dto.ClienteDTO;
 import cadastroUsuario.model.Cliente;
 import cadastroUsuario.repository.ClienteRepository;
-import cadastroUsuario.repository.EmailRepository;
-import cadastroUsuario.repository.TelefoneRepository;
 
 @Service
 public class ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
-	@Autowired
-	private TelefoneRepository telefoneRepository;
-	@Autowired 
-	private EmailRepository emailRepository;
+	
+	
+	public List<ClienteDTO> buscaTodos(){
+		List<Cliente> clientes = clienteRepository.findAll();
+		List<ClienteDTO> clientesDtos = clientes.stream().map(x-> new ClienteDTO(x)).collect(Collectors.toList());
+		
+		return clientesDtos;
+	}
 	
 	public ClienteDTO salvar(ClienteDTO clienteDTO) {
-		Cliente obj = new Cliente(clienteDTO);
+		Cliente cliente = new Cliente(clienteDTO);		
+		cliente = clienteRepository.save(cliente);
 		
-		obj = clienteRepository.save(obj);
-		
-		return new ClienteDTO(obj);
+		return new ClienteDTO(cliente);
 	}
+	
 	
 	public ClienteDTO atualizar(Long id, ClienteDTO dto) {
 		dto.setId(id);
