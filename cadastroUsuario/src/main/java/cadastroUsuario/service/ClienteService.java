@@ -59,6 +59,9 @@ public class ClienteService {
 		
 		emailRepository.saveAll(emails);
 		
+		cliente.getEmails().addAll(emails);
+		cliente.getTelefones().addAll(telefones);
+		
 		return new ClienteDTO(cliente);
 	}
 	
