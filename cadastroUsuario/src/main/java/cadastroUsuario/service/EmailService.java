@@ -30,7 +30,7 @@ public class EmailService {
 	public Email atualizar(Long idEmail,Email email) {
 		Email oldEmail = emailRepository.findById(idEmail).get();
 		oldEmail.setEmail(email.getEmail());
-		return emailRepository.save(email);
+		return emailRepository.save(oldEmail);
 	}
 	public void deletar(Long id) {
 		emailRepository.deleteById(id);
