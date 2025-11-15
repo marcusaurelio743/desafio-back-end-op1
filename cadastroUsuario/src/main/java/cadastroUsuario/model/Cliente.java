@@ -11,6 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,7 +31,11 @@ public class Cliente implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotBlank(message = "Nome é obrigatório")
+    @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ\\s]+$", message = "O nome deve conter apenas letras")
 	private String nome;
+	@NotBlank(message = "CPF é obrigatório")
+	@CPF(message = "CPF inválido")
 	private String cpf;
 	private String cep;
 	private String logradouro;
@@ -37,10 +47,14 @@ public class Cliente implements Serializable {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL,orphanRemoval = true)
+	@NotNull(message = "É obrigatório informar ao menos um telefone")
+    @Size(min = 1, message = "Informe ao menos um telefone")
 	private List<Telefone> telefones = new ArrayList<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL,orphanRemoval = true)
+	@NotNull(message = "É obrigatório informar ao menos um email")
+    @Size(min = 1, message = "Informe ao menos um email")
 	private List<Email> emails = new ArrayList<>();
 	
 

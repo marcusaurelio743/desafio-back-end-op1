@@ -27,13 +27,13 @@ public class TelefoneService {
 		Cliente cliente = clienteRepository.findById(idCli).get();
 		
 		telefone.setCliente(cliente);
-		
+		telefone.setTelefone(RemoveMascara.removeMacara(telefone.getTelefone()));
 		return telefoneRepository.save(telefone);
 	}
 	public Telefone atualizar(Long idTele,Telefone telefone) {
 		
 		Telefone oldFone = telefoneRepository.findById(idTele).get();
-		oldFone.setTelefone(telefone.getTelefone());
+		oldFone.setTelefone(RemoveMascara.removeMacara(telefone.getTelefone()));
 		oldFone.setTipo(telefone.getTipo());
 		return telefoneRepository.save(oldFone);
 	}

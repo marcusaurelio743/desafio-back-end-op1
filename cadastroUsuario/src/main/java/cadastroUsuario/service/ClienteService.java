@@ -33,7 +33,8 @@ public class ClienteService {
 	
 	public ClienteDTO salvar(ClienteDTO clienteDTO) {
 		Cliente cliente = new Cliente(clienteDTO);
-		
+		cliente.setCpf(RemoveMascara.removeMacara(clienteDTO.getCpf()));
+		cliente.setCep(RemoveMascara.removeMacara(clienteDTO.getCep()));
 		cliente = clienteRepository.save(cliente);
 		
 		List<Telefone> telefones = new ArrayList<>();
@@ -42,7 +43,7 @@ public class ClienteService {
 			Telefone telefone = new Telefone();
 			telefone.setCliente(cliente);
 			telefone.setTipo(fone.getTipo());
-			telefone.setTelefone(fone.getTelefone());
+			telefone.setTelefone(RemoveMascara.removeMacara(fone.getTelefone()));
 			telefones.add(telefone);
 		}
 		
@@ -71,9 +72,9 @@ public class ClienteService {
 		Cliente cliente = clienteRepository.findById(id).get();
 		cliente.setId(id);
 		cliente.setBairro(dto.getBairro());
-		cliente.setCep(dto.getCep());
+		cliente.setCep(RemoveMascara.removeMacara(dto.getCep()));
 		cliente.setComplemento(dto.getComplemento());
-		cliente.setCpf(dto.getCpf());
+		cliente.setCpf(RemoveMascara.removeMacara(dto.getCpf()));
 		cliente.setEstado(dto.getEstado());
 		cliente.setLocalidade(dto.getLocalidade());
 		cliente.setLogradouro(dto.getLogradouro());
