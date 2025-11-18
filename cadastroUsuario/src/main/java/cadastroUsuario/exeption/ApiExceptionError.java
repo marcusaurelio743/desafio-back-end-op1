@@ -23,6 +23,14 @@ public class ApiExceptionError {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 		
 	}
+	@ExceptionHandler(ExecaoGenerica.class)
+	public ResponseEntity<StandardError> validationErrors(ExecaoGenerica ex,HttpServletRequest request){
+		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+				"error nos dados:", ex.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		
+	}
 	
 	@ExceptionHandler(ConstraintViolationException.class)
 	public ResponseEntity<StandardError> validationErrors(ConstraintViolationException ex,HttpServletRequest request){
@@ -36,6 +44,7 @@ public class ApiExceptionError {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 		
 	}
+	
 	
 
 }

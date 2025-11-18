@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,6 +36,7 @@ public class Cliente implements Serializable {
 	private String nome;
 	@NotBlank(message = "CPF é obrigatório")
 	@CPF(message = "CPF inválido")
+	@Column(unique = true,length = 11)
 	private String cpf;
 	private String cep;
 	private String logradouro;

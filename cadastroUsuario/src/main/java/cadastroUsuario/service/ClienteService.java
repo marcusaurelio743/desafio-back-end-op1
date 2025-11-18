@@ -2,12 +2,14 @@ package cadastroUsuario.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cadastroUsuario.dto.ClienteDTO;
+import cadastroUsuario.exeption.ExecaoGenerica;
 import cadastroUsuario.model.Cliente;
 import cadastroUsuario.model.Email;
 import cadastroUsuario.model.Telefone;
@@ -35,7 +37,10 @@ public class ClienteService {
 		Cliente cliente = new Cliente(clienteDTO);
 		cliente.setCpf(RemoveMascara.removeMacara(clienteDTO.getCpf()));
 		cliente.setCep(RemoveMascara.removeMacara(clienteDTO.getCep()));
-		cliente = clienteRepository.save(cliente);
+			
+		validaCpf(clienteDTO.getCpf());
+			cliente = clienteRepository.save(cliente);
+		
 		
 		List<Telefone> telefones = new ArrayList<>();
 		
@@ -81,8 +86,17 @@ public class ClienteService {
 		cliente.setNome(dto.getNome());
 		cliente.setUf(dto.getUf());
 		
-		cliente = clienteRepository.save(cliente);
+		validaCpf(dto.getCpf());
+			cliente = clienteRepository.save(cliente);
+		
+		
 		return new ClienteDTO(cliente);
+	}
+	private void validaCpf(String cpf) {
+		Optional<Cliente> cli = clienteRepository.findByCpf(cpf);
+		if(cli.isPresent() ) {
+			throw new ExecaoGenerica("O cpf Já existe!!", null);
+		}
 	}
 	
 	public void deltarCliente(Long id) {
