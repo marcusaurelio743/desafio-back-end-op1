@@ -1,0 +1,114 @@
+
+  <div fxLayout="row" fxLayoutAlign="center">
+
+    <div fxLayout="column" fxFlex="1000px">
+      <form [formGroup]="form" (ngSubmit)="salvar()">
+        <mat-card>
+          <mat-card-header fxLayoutAlign="center">
+            <mat-card-title >Cadastro de Clientes</mat-card-title>
+
+          </mat-card-header>
+          <mat-card-content>
+
+               <!-- Nome -->
+
+            <!-- BACKEND ERRORS -->
+              <div *ngIf="backendErrors.length > 0" class="alert alert-danger">
+                  <div *ngFor="let error of backendErrors">
+                      <strong>{{ error.field }}:</strong> {{ error.message }}
+                  </div>
+              </div>
+
+              <div *ngIf="backendErrors.length > 0" class="alert alert-danger mt-2">
+  <ul>
+    <li *ngFor="let e of backendErrors">
+      {{ e.message }}
+    </li>
+  </ul>
+</div>
+    <div>
+      <label>Nome:</label>
+      <input type="text" formControlName="nome" />
+      <div *ngIf="form.get('nome')?.invalid && form.get('nome')?.touched" class="text-danger">
+        Nome obrigatório e somente letras.
+      </div>
+    </div>
+
+    <!-- CPF -->
+    <div>
+      <label>CPF:</label>
+      <input type="text" formControlName="cpf" mask="000.000.000-00" />
+    </div>
+
+    <!-- CEP -->
+    <div>
+      <label>CEP:</label>
+      <input type="text" formControlName="cep" mask="00000-000" (blur)="buscarCep()" />
+    </div>
+
+    <!-- Endereço -->
+    <div>
+      <label>Logradouro:</label>
+      <input type="text" formControlName="logradouro" />
+    </div>
+
+    <div>
+      <label>Complemento:</label>
+      <input type="text" formControlName="complemento" />
+    </div>
+
+    <div>
+      <label>Bairro:</label>
+      <input type="text" formControlName="bairro" />
+    </div>
+
+    <div>
+      <label>Cidade:</label>
+      <input type="text" formControlName="localidade" />
+    </div>
+
+    <div>
+      <label>UF:</label>
+      <input type="text" formControlName="uf" />
+    </div>
+
+    <!-- Telefones -->
+    <div formArrayName="telefones">
+      <h3>Telefones</h3>
+
+      <div *ngFor="let tel of telefones.controls; let i = index" [formGroupName]="i">
+        <input placeholder="Telefone" formControlName="telefone" mask="(00) 0000-0000||(00) 00000-0000" />
+        <select formControlName="tipo">
+          <option value="">Selecione</option>
+          <option value="CELULAR">Celular</option>
+          <option value="RESIDENCIAL">Residencial</option>
+          <option value="COMERCIAL">Comercial</option>
+        </select>
+
+        <button type="button" (click)="removeTelefone(i)">Remover</button>
+      </div>
+
+      <button type="button" (click)="addTelefone()">Adicionar Telefone</button>
+    </div>
+
+    <!-- Emails -->
+    <div formArrayName="emails">
+      <h3>Emails</h3>
+
+      <div *ngFor="let em of emails.controls; let i = index" [formGroupName]="i">
+        <input placeholder="Email" formControlName="email" />
+        <button type="button" (click)="removeEmail(i)">Remover</button>
+      </div>
+
+      <button type="button" (click)="addEmail()">Adicionar Email</button>
+    </div>
+
+    <button type="submit" [disabled]="form.invalid" >Salvar</button>
+
+          </mat-card-content>
+        </mat-card>
+      </form>
+
+    </div>
+
+  </div>

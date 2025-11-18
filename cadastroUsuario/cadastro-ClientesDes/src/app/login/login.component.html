@@ -1,0 +1,13 @@
+<form [formGroup]="form" (ngSubmit)="entrar()">
+
+  <label>Usuário</label>
+  <input type="text" formControlName="usuario">
+
+  <label>Senha</label>
+  <input type="password" formControlName="senha">
+
+  <button type="submit">Entrar</button>
+
+  <p style="color:red" *ngIf="backendError">{{ backendError }}</p>
+
+</form>

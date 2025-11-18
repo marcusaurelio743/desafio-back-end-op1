@@ -49,10 +49,12 @@ public class Cliente implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL,orphanRemoval = true)
 	@NotNull(message = "É obrigatório informar ao menos um telefone")
+	
 	private List<Telefone> telefones = new ArrayList<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL,orphanRemoval = true)
+	
 	@NotNull(message = "É obrigatório informar ao menos um email")
 	private List<Email> emails = new ArrayList<>();
 	

@@ -1,0 +1,7 @@
+<mat-toolbar color="primary" *ngIf="!isLoginRoute">
+  <span>Cadastro de Clientes</span>
+  <span class="spacer"></span>
+  <a *ngIf="isAdmin" routerLink="/cadastro">Formulario</a>
+  <a routerLink="/lista">Consulta</a>
+</mat-toolbar>
+<router-outlet></router-outlet>

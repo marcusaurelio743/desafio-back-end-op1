@@ -20,7 +20,7 @@ public class DbService {
 		usuario1.setSenha("123qwe123");
 		
 		Usuario usuario2 = new Usuario();
-		usuario2.setPerfil("admin");
+		usuario2.setPerfil("ADMIN");
 		usuario2.setUsuario("admin");
 		usuario2.setSenha("123qwe!@#");
 		

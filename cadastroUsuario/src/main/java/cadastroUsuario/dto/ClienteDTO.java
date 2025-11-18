@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.Size;
+
 import cadastroUsuario.model.Cliente;
 import cadastroUsuario.model.Email;
 import cadastroUsuario.model.Telefone;
@@ -23,8 +25,12 @@ public class ClienteDTO implements Serializable {
 	private String uf;
 	private String estado;
 	
+	
+	@Size(min = 1,message = "é obrigatório pelo menos 1 telefone")
 	private List<Telefone> telefones = new ArrayList<>();
 	
+	
+	@Size(min = 1,message = "é obrigatório pelo menos 1 email")
 	private List<Email> emails = new ArrayList<>();
 	
 
