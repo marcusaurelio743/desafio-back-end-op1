@@ -11,7 +11,7 @@ import cadastroUsuario.repository.UsuarioRepository;
 @Service
 public class DbService {
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private UsuarioRepository usuarioRepository; 
 	
 	public void instanciaDB() {
 		Usuario usuario1 = new Usuario();
